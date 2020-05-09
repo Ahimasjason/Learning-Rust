@@ -5,7 +5,8 @@
 #### TO DO:
 
 ---
-- [ ] Create the struct that store following
-  - [ ] File name
-  - [ ] Query String
-  - [ ] 
+- [x] Create the struct that store following
+  - [x] File name
+  - [x] Query String
+- [] Accept arguments from command line
+  - [] Provide validation for file Accept only (pdf,txt file)

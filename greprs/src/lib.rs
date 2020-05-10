@@ -1,4 +1,6 @@
-
+use std::path;
+use std::env;
+use std::fs;
 
 #[derive(Debug)]
 pub struct  Config {
@@ -9,22 +11,15 @@ pub struct  Config {
 
 impl Config {
     pub fn new(filename :String , query_string :String) -> Result<Config,&'static str>{
-        // match filename {
-        //     Some  => println!("Something got"),
-        //     None  => println!("Nothing Got "),
-        // }
-        // if 2 < 3 {
-        //     return Err("Some thing went wrong")
-        // }
         let con = Config{filename , query_string};
         Ok(con)
     }
 }
 
 pub fn check_file_name(file_name : &String) -> bool {
-    match file_name.contains(".") {
-        false => return false,
-        _ => (),
+    if let false = file_name.contains("."){
+        println!(" file not valid from fn");
+        return false;
     }
     let allowed_extn = ["txt","pdf"];
     let test : Vec<&str> = "some_text.txt".split(".").collect::<Vec<&str>>();
@@ -33,4 +28,20 @@ pub fn check_file_name(file_name : &String) -> bool {
         Some(_) => return true,
         None => return false,
     }
+}
+
+
+pub fn file_exists(file_name : &String) -> bool {
+    match file_name.contains("/"){
+        true => {
+            println!("f{}",file_name);
+            path::Path::new(&file_name).exists()
+        },
+        false => {
+            let mut curr_dir = env::current_dir().expect("unable to locate current dir");
+            curr_dir.push(&file_name);
+            path::Path::new(&curr_dir).exists()
+        }
+    }
+    
 }

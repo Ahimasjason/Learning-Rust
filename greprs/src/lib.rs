@@ -10,19 +10,31 @@ pub struct  Config {
 
 
 impl Config {
-    pub fn new(filename :String , query_string :String) -> Result<Config,&'static str>{
+    pub fn new(mut args: std::env::Args) -> Result<Config,&'static str>{
+        // let con = Config{filename , query_string};
+        args.next(); //skiping the curr dir
+
+        let query_string = match args.next() {
+            Some(i) => i,
+            None => return Err(" Didn't get query string")
+        };
+
+        let filename = match args.next() {
+            Some(f_name) => f_name ,
+            None => return Err("didn't get file name from query string")
+        };
         let con = Config{filename , query_string};
         Ok(con)
     }
 }
 
 pub fn check_file_name(file_name : &String) -> bool {
+    
     if let false = file_name.contains("."){
-        println!(" file not valid from fn");
         return false;
     }
     let allowed_extn = ["txt","pdf"];
-    let test : Vec<&str> = "some_text.txt".split(".").collect::<Vec<&str>>();
+    let test : Vec<&str> = file_name.split(".").collect::<Vec<&str>>();
     let file_ext = &test[test.len()-1];
     match allowed_extn.into_iter().find(|a| a == &file_ext){
         Some(_) => return true,

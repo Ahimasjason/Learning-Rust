@@ -19,10 +19,11 @@ fn write_error(err_str :String){
 }
 fn main(){
     // Accepting args from command line
-    let args: Vec<String> = args().collect();
+    // let args: Vec<String> = args().collect();
     // let mut stderr = std::io::stderr();
     // /home/simsol/Downloads/crack_code_inter_test.pdf
-    let con = Config::new(String::from("/home/simsol/Downloads/crack_code_inter_test.pdf"),String::from("find")).unwrap_or_else( |err| 
+    // String::from("/home/simsol/Downloads/crack_code_inter_test.pdf"),String::from("find")
+    let con = Config::new(args()).unwrap_or_else( |err| 
         {
             write_error(format!("Unable to create config {}",err));
             process::exit(1);
@@ -40,7 +41,7 @@ fn main(){
         process::exit(1);
     };
     println!("{:?}",con);
-    println!("{:?}",args);
+    // println!("{:?}",args);
 }
 
 

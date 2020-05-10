@@ -10,8 +10,8 @@
   - [x] Query String
 - [x] provide checks to check file exists or not 
   - [x] Done.  
-- [ ] Accept arguments from command line
-  - [ ] Provide validation for file Accept only (pdf,txt file)
+- [x] Accept arguments from command line
+  - [x] Provide validation for file Accept only (pdf,txt file)
 
 
 Target:-

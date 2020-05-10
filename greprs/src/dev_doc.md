@@ -12,7 +12,7 @@
   - [x] Done.  
 - [x] Accept arguments from command line
   - [x] Provide validation for file Accept only (pdf,txt file)
-
+- [x] Read the file 
 
 Target:-
 ===

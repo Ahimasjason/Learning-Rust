@@ -9,6 +9,26 @@ pub struct  Config {
 }
 
 
+
+pub fn file_exists(file_name : &String) -> bool {
+    match file_name.contains("/"){
+        true => {
+            println!("f{}",file_name);
+            path::Path::new(&file_name).exists()
+        },
+        false => {
+            let mut curr_dir = env::current_dir().expect("unable to locate current dir");
+            curr_dir.push(&file_name);
+            path::Path::new(&curr_dir).exists()
+        }
+    }
+    
+}
+
+
+
+
+
 impl Config {
     pub fn new(mut args: std::env::Args) -> Result<Config,&'static str>{
         // let con = Config{filename , query_string};
@@ -43,17 +63,26 @@ pub fn check_file_name(file_name : &String) -> bool {
 }
 
 
-pub fn file_exists(file_name : &String) -> bool {
-    match file_name.contains("/"){
-        true => {
-            println!("f{}",file_name);
-            path::Path::new(&file_name).exists()
-        },
-        false => {
-            let mut curr_dir = env::current_dir().expect("unable to locate current dir");
-            curr_dir.push(&file_name);
-            path::Path::new(&curr_dir).exists()
-        }
+#[derive(Debug)]
+pub struct FileReader {
+    file: fs::File,
+}
+
+
+impl FileReader{
+    pub fn new(path_to_file : &String) -> Result<FileReader,&'static str>{
+       if let false  = file_exists(&path_to_file) {
+           return Err("File does not exit in given  directory")  
+        };
+
+        let file = match fs::File::open(&path_to_file){
+            Ok(f) => f,
+            Err(err) => {
+                // let mut err_msg = format!("Error : {:?} ",err);
+                return Err("Unable to open the file ");
+            } 
+        };
+
+        Ok(FileReader{file})
     }
-    
 }

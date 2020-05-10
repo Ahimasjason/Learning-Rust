@@ -1,12 +1,9 @@
 extern crate greprs;
 use std::io::prelude::*;
 use std::env::args;
-use std::io::prelude::*;
 use std::process;
-use std::env;
 use greprs::Config;
-use std::fs;
-
+use greprs::FileReader;
 
 
 fn write_error(err_str :String){
@@ -40,8 +37,20 @@ fn main(){
         write_error(format!("Given file not found on the path"));
         process::exit(1);
     };
+
     println!("{:?}",con);
     // println!("{:?}",args);
+    let fs = match FileReader::new(&con.filename){
+            Ok(file) => file,
+            Err(_) => {
+                write_error(format!("Given file not found on the path"));
+                process::exit(1);
+            }
+    };
+
+    // let fs = FileReader::new(&con.filename).expect();
+
+    println!("{:?}",fs);
 }
 
 

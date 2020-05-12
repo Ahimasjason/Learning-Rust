@@ -13,6 +13,9 @@
 - [x] Accept arguments from command line
   - [x] Provide validation for file Accept only (pdf,txt file)
 - [x] Read the file 
+- [x]  provide search method on file reader method that accept seach string as query string
+- [x]  Create the new txt file that containing query string line
+- [x]  save the file in that same directory with nre name 
 
 Target:-
 ===

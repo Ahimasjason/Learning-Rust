@@ -1,3 +1,4 @@
+use std::io::Read;
 use std::path;
 use std::env;
 use std::fs;
@@ -84,5 +85,18 @@ impl FileReader{
         };
 
         Ok(FileReader{file})
+    }
+
+    pub fn search_str(&mut self,search_str : &str) ->String{
+        let mut results  = String::new();
+        self.file.read_to_string(&mut results);
+        let mut result_vec = vec![];       
+        for line in results.lines(){
+            if line.contains(search_str){
+                println!(" {} " , line );
+                result_vec.push(line);
+            }
+        }
+        "asas".to_string()
     }
 }

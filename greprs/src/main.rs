@@ -4,6 +4,7 @@ use std::env::args;
 use std::process;
 use greprs::Config;
 use greprs::FileReader;
+use std::fs;
 
 
 fn write_error(err_str :String){
@@ -20,6 +21,8 @@ fn main(){
     // let mut stderr = std::io::stderr();
     // /home/simsol/Downloads/crack_code_inter_test.pdf
     // String::from("/home/simsol/Downloads/crack_code_inter_test.pdf"),String::from("find")
+    
+    
     let con = Config::new(args()).unwrap_or_else( |err| 
         {
             write_error(format!("Unable to create config {}",err));
@@ -40,7 +43,7 @@ fn main(){
 
     println!("{:?}",con);
     // println!("{:?}",args);
-    let fs = match FileReader::new(&con.filename){
+    let mut fs = match FileReader::new(&con.filename){
             Ok(file) => file,
             Err(_) => {
                 write_error(format!("Given file not found on the path"));
@@ -49,7 +52,7 @@ fn main(){
     };
 
     // let fs = FileReader::new(&con.filename).expect();
-
+    fs.search_str(&con.query_string);
     println!("{:?}",fs);
 }
 
